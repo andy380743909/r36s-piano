@@ -7,10 +7,12 @@
 
 local K = {}
 
+local helpText = ""
 
 -- K.init is for loading assets for the scene
 function K.init()
 	bgart[999] = love.graphics.newImage("bgart/exitscreen.jpg")
+	help[999] = "Release SELECT and the left stick to exit..."
 end
 
 function K.input()
@@ -224,10 +226,15 @@ end
 
 end
 
-
+-- this scene's screen draws go here
 function K.draw()
--- screen draws go here
-
+	love.graphics.setFont(mainFont)
+	if love.keyboard.isScancodeDown("escape") then
+    	helpText = help[999]
+	else
+		helpText = ""
+    end
+    love.graphics.printf(helpText, mainFont, 50, 80, 540, "left")
 end
 
 

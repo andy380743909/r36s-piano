@@ -80,7 +80,6 @@ function love.keypressed( key, scancode, isrepeat )
       -- SELECT pressed
       triggerReport = "SELECT pressed"
       miscState[1] = "dn"
-      helpText = help[100]
    elseif scancode == "return" then
       -- START pressed
       triggerReport = "START pressed"
@@ -180,7 +179,6 @@ function love.keyreleased( key, scancode )
       -- SELECT released
       triggerReport = "SELECT released"
       miscState[1] = "up"
-      helpText = ""
    elseif scancode == "return" then
       -- START released
       triggerReport = "START released"
@@ -259,6 +257,11 @@ end
 -- this scene's screen draws go here
 function K.draw()
 	love.graphics.setFont(mainFont)
+    if love.keyboard.isScancodeDown("escape") then
+    	helpText = help[100]
+	else
+		helpText = ""
+    end
     love.graphics.printf(helpText, mainFont, 50, 80, 540, "left")
 end
 
