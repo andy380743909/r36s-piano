@@ -81,10 +81,20 @@ end
 -- to render game state onto the screen, 60 fps
 function love.draw()
 	-- load scene draw state here
-	if love.keyboard.isDown("escape") then
+	local virtualJoystick = nil
+   if love.joystick.getJoystickCount() > 1 then
+        -- Get the joystick at index 2 (Lua array is 1 based not 0 based)
+        virtualJoystick = love.joystick.getJoysticks()[2]
+    else
+        virtualJoystick = nil
+    end
+   
+	if love.keyboard.isDown("escape") or (virtualJoystick and virtualJoystick:isGamepadDown("back")) then
 		love.graphics.draw(helpTextBackDrop, 0, 0) -- SELECT shows scene help
 	else
 		love.graphics.draw(bgart[scene.current], 0, 0) -- draw regular scene background
 	end
 	scene[scene.current].draw()
+	--love.graphics.print(triggerReport, 125, 100)
+	--love.graphics.print(virtualJoystick:getName(), 125, 130)
 end
